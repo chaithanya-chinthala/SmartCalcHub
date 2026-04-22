@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+
+{% block title %}BMI Calculator - CalcNova{% endblock %}
+
+{% block content %}
+<div class="container-fluid mt-4 px-3 px-md-5">
+  <div class="row">
+
+    <!-- LEFT: FORM -->
+    <div class="col-12 col-md-6 mb-4">
+      <div class="card p-4 p-md-5 shadow-lg border-0">
+        <h3><i class="bi bi-heart-pulse text-danger"></i> BMI Calculator</h3>
+        <p class="text-muted small">
+          Enter your weight and height to check your Body Mass Index (BMI).
+        </p>
+
+        <form method="POST">
+          <input type="number" step="any" class="form-control mb-3" name="weight" placeholder="Weight (kg)" required>
+          <input type="number" step="any" class="form-control mb-3" name="height" placeholder="Height (cm)" required>
+
+          <button class="btn btn-success w-100">Calculate BMI</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- RIGHT: RESULT -->
+    <div class="col-12 col-md-6 mb-4">
+      <div class="card p-4 shadow text-center">
+        <h3>Result</h3>
+
+        {% if bmi is not none %}
+
+        <!-- 🎯 RESULT BOX -->
+        <div class="result-box mt-3">
+            <h2>{{ bmi }}</h2>
+            <p class="mb-0">{{ category }}</p>
+        </div>
+
+        <!-- 📊 INFO BOXES -->
+        <div class="row text-center mt-4">
+            <div class="col-6">
+                <div class="p-3 bg-light rounded">
+                    <h6>Your BMI</h6>
+                    <strong>{{ bmi }}</strong>
+                </div>
+            </div>
+
+            <div class="col-6">
+                <div class="p-3 bg-light rounded">
+                    <h6>Status</h6>
+                    <strong>{{ category }}</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- 📈 BETTER CHART (Comparison Style) -->
+        <canvas id="bmiChart" class="mt-4 w-100" style="max-height:250px;"></canvas>
+
+        <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const ctx = document.getElementById("bmiChart");
+
+            if (ctx) {
+                const bmiValue = {{ bmi | default(0) }};
+
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Underweight', 'Normal', 'Overweight', 'Obese', 'You'],
+                        datasets: [{
+                            label: 'BMI Scale',
+                            data: [18.5, 24.9, 29.9, 35, bmiValue],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: { display: false }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                suggestedMax: 40
+                            }
+                        }
+                    }
+                });
+            }
+
+        });
+        </script>
+
+        {% else %}
+        <p class="text-muted mt-4">Your BMI result will appear here</p>
+        {% endif %}
+
+      </div>
+    </div>
+
+  </div>
+</div>
+{% endblock %}

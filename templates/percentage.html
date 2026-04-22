@@ -1,0 +1,143 @@
+{% extends "base.html" %}
+
+{% block title %}Percentage Calculator - CalcNova{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid mt-4 px-3 px-md-5">
+  <div class="row">
+
+    <!-- LEFT: FORM -->
+    <div class="col-12 col-md-6 mb-4">
+      <div class="card p-3 p-md-5 shadow-lg border-0">
+
+        <h3 class="mb-3">
+          <i class="bi bi-percent text-warning"></i> Percentage Calculator
+        </h3>
+
+        <p class="text-muted small">
+          Quickly calculate percentage of any value.
+        </p>
+
+        <form method="POST">
+
+          <input type="number" class="form-control mb-3"
+                 name="part" step="any" min="0"
+                 placeholder="Part Value" required>
+
+          <input type="number" class="form-control mb-3"
+                 name="whole" step="any" min="0"
+                 placeholder="Total Value" required>
+
+          <button class="btn btn-warning w-100 fw-bold">
+            Calculate Percentage
+          </button>
+
+        </form>
+
+        {% if error %}
+        <div class="alert alert-danger mt-3">
+          {{ error }}
+        </div>
+        {% endif %}
+
+      </div>
+    </div>
+
+    <!-- RIGHT: RESULT -->
+    <div class="col-12 col-md-6 mb-4">
+      <div class="card p-4 shadow text-center">
+
+        <h3>Result</h3>
+
+        {% if result is not none %}
+
+        <!-- 🎯 RESULT BOX -->
+        <div class="result-box mt-3">
+            <h2 class="fw-bold">{{ result }}%</h2>
+            <p class="mb-0">Calculated Percentage</p>
+        </div>
+
+        <!-- 📊 BREAKDOWN -->
+        <div class="row text-center mt-4">
+
+            <div class="col-6">
+                <div class="p-3 bg-light rounded shadow-sm">
+                    <h6>Part</h6>
+                    <strong>{{ result }}%</strong>
+                </div>
+            </div>
+
+            <div class="col-6">
+                <div class="p-3 bg-light rounded shadow-sm">
+                    <h6>Remaining</h6>
+                    <strong>{{ 100 - result }}%</strong>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- 📈 CHART -->
+        <canvas id="percentageChart" class="mt-4 w-100" style="max-height:250px;"></canvas>
+
+        {% else %}
+            <p class="text-muted mt-4">Percentage result will appear here</p>
+        {% endif %}
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- 📊 SCRIPT (SAFE VERSION - NO ERRORS) -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const ctx = document.getElementById('percentageChart');
+
+    if (ctx) {
+        const value = {{ result | default(0) }};
+
+        if (value > 0) {
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Part', 'Remaining'],
+                    datasets: [{
+                        data: [value, 100 - value]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            });
+        }
+    }
+
+});
+</script>
+
+<!-- 📘 SEO CONTENT -->
+<div class="container mt-5 text-white">
+
+    <h2>What is Percentage?</h2>
+    <p>
+        A percentage represents a number as a fraction of 100.
+        It is commonly used in mathematics, finance, statistics, and everyday life.
+    </p>
+
+    <img src="https://images.unsplash.com/photo-1509228468518-180dd4864904?q=80&w=800"
+         class="img-fluid rounded shadow my-3">
+
+    <h3>Why Use This Calculator?</h3>
+    <ul>
+        <li>Instant percentage calculation</li>
+        <li>Accurate results</li>
+        <li>Useful for exams, discounts, and analytics</li>
+    </ul>
+
+</div>
+
+{% endblock %}

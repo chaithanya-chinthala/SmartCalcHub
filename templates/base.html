@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <!-- 🔥 SEO META -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>{% block title %}CalcNova - Smart Online Calculators{% endblock %}</title>
+
+    <meta name="description" content="CalcNova offers free online calculators like EMI, GST, Percentage, Age, and BMI. Fast, accurate, and easy to use.">
+    <meta name="keywords" content="EMI calculator, GST calculator, percentage calculator, age calculator, BMI calculator online free">
+    <meta name="author" content="CalcNova">
+
+    <!-- ✅ Canonical (VERY IMPORTANT FOR SEO) -->
+    <link rel="canonical" href="{{ request.url }}">
+
+    <!-- 🔗 Open Graph -->
+    <meta property="og:title" content="CalcNova - Smart Calculators">
+    <meta property="og:description" content="All-in-one calculator platform for finance, health, and daily needs.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://cdn-icons-png.flaticon.com/512/2721/2721291.png">
+
+    <!-- 🖼 Favicon -->
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/2721/2721291.png">
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<!-- 🔝 NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-dark px-4 py-3 sticky-top"
+     style="background: rgba(0,0,0,0.85); backdrop-filter: blur(10px);">
+
+  <div class="container-fluid">
+
+    <!-- LOGO -->
+    <a class="navbar-brand fw-bold fs-4" href="/">🚀 CalcNova</a>
+
+    <!-- TOGGLE -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- NAV ITEMS -->
+    <div class="collapse navbar-collapse" id="nav">
+
+        <ul class="navbar-nav mx-auto text-center">
+
+            <li class="nav-item"><a class="nav-link" href="/emi-calculator">💰 EMI</a></li>
+            <li class="nav-item"><a class="nav-link" href="/gst-calculator">🧾 GST</a></li>
+            <li class="nav-item"><a class="nav-link" href="/percentage-calculator">% Percentage</a></li>
+            <li class="nav-item"><a class="nav-link" href="/age-calculator">🎂 Age</a></li>
+            <li class="nav-item"><a class="nav-link" href="/bmi-calculator">🏋️ BMI</a></li>
+
+        </ul>
+
+        <!-- 🔍 SEARCH -->
+        <form class="d-flex" onsubmit="handleSearch(event)">
+            <input id="searchInput" class="form-control me-2" type="search" placeholder="Search tools..." required>
+            <button class="btn btn-outline-light">Search</button>
+        </form>
+
+    </div>
+
+  </div>
+</nav>
+
+<!-- 📄 CONTENT -->
+<div class="container-fluid mt-3">
+    {% block content %}
+    {% endblock %}
+</div>
+
+<!-- 🔻 FOOTER -->
+<footer class="mt-5 text-white" style="background:#0f172a;">
+  <div class="container py-5">
+
+    <div class="row text-center text-md-start">
+
+      <!-- BRAND -->
+      <div class="col-md-4 mb-4">
+        <h5>🚀 CalcNova</h5>
+        <p class="small">
+          Free modern calculators for finance, health and daily use. Fast, accurate and easy.
+        </p>
+      </div>
+
+      <!-- TOOLS -->
+      <div class="col-md-4 mb-4">
+        <h6>Tools</h6>
+        <ul class="list-unstyled">
+          <li><a href="/emi-calculator" class="text-white text-decoration-none">EMI Calculator</a></li>
+          <li><a href="/gst-calculator" class="text-white text-decoration-none">GST Calculator</a></li>
+          <li><a href="/percentage-calculator" class="text-white text-decoration-none">Percentage Calculator</a></li>
+          <li><a href="/age-calculator" class="text-white text-decoration-none">Age Calculator</a></li>
+          <li><a href="/bmi-calculator" class="text-white text-decoration-none">BMI Calculator</a></li>
+        </ul>
+      </div>
+
+      <!-- INFO -->
+      <div class="col-md-4 mb-4">
+        <h6>Quick Links</h6>
+        <ul class="list-unstyled">
+          <li><a href="/" class="text-white text-decoration-none">Home</a></li>
+          <li><a href="#" class="text-white text-decoration-none">About</a></li>
+          <li><a href="#" class="text-white text-decoration-none">Privacy Policy</a></li>
+          <li><a href="#" class="text-white text-decoration-none">Terms</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <hr>
+
+    <div class="text-center small">
+      © 2026 CalcNova | Built with ❤️ | All Rights Reserved
+    </div>
+
+  </div>
+</footer>
+
+<!-- JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- 🔍 SEARCH LOGIC -->
+<script>
+function handleSearch(e) {
+    e.preventDefault();
+
+    let value = document.getElementById("searchInput").value.toLowerCase().trim();
+
+    if (value.includes("emi")) {
+        window.location.href = "/emi-calculator";
+    } 
+    else if (value.includes("gst")) {
+        window.location.href = "/gst-calculator";
+    } 
+    else if (value.includes("percent")) {
+        window.location.href = "/percentage-calculator";
+    } 
+    else if (value.includes("age")) {
+        window.location.href = "/age-calculator";
+    } 
+    else if (value.includes("bmi")) {
+        window.location.href = "/bmi-calculator";
+    } 
+    else {
+        alert("No matching tool found 🔍");
+    }
+}
+</script>
+
+</body>
+</html>

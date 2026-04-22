@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+
+{% block title %}GST Calculator - CalcNova{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid mt-4 px-3 px-md-5">
+  <div class="row">
+
+    <!-- LEFT: FORM -->
+    <div class="col-12 col-md-6 mb-4">
+      <div class="card p-4 p-md-5 shadow-lg border-0">
+        <h3><i class="bi bi-receipt text-success"></i> GST Calculator</h3>
+        <p class="text-muted small">
+          Calculate GST amount and total cost instantly for accurate billing.
+        </p>
+
+        <form method="POST">
+          <input type="number" class="form-control mb-3"
+                 name="amount" step="any" min="0"
+                 placeholder="Enter Amount (₹)" required>
+
+          <input type="number" class="form-control mb-3"
+                 name="gst" step="any" min="0" max="100"
+                 placeholder="GST (%)" required>
+
+          <button class="btn btn-success w-100">Calculate GST</button>
+        </form>
+
+        <!-- ❗ ERROR -->
+        {% if error %}
+          <div class="alert alert-danger mt-3">
+            {{ error }}
+          </div>
+        {% endif %}
+
+      </div>
+    </div>
+
+    <!-- RIGHT: RESULT -->
+    <div class="col-12 col-md-6 mb-4">
+      <div class="card p-4 shadow text-center">
+
+        <h3>Result</h3>
+
+        {% if gst_amount is not none and total is not none %}
+
+        <!-- 🎯 RESULT BOX -->
+        <div class="result-box mt-3">
+            <h2 class="fw-bold">₹ {{ total }}</h2>
+            <p class="mb-0">Total Amount</p>
+        </div>
+
+        <hr>
+
+        <!-- 📊 BREAKDOWN -->
+        <div class="row text-center mt-3">
+
+            <div class="col-6">
+                <div class="p-3 bg-light rounded">
+                    <h6>Base Amount</h6>
+                    <strong>₹ {{ amount }}</strong>
+                </div>
+            </div>
+
+            <div class="col-6">
+                <div class="p-3 bg-light rounded">
+                    <h6>GST</h6>
+                    <strong>₹ {{ gst_amount }}</strong>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- 📈 CHART -->
+        <canvas id="gstChart" class="mt-4 w-100" style="max-height:250px;"></canvas>
+
+        {% else %}
+            <p class="text-muted mt-4">GST result will appear here</p>
+        {% endif %}
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- 📊 CHART SCRIPT -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const ctx = document.getElementById('gstChart');
+
+    if (ctx) {
+        const amount = {{ amount | default(0) }};
+        const gst = {{ gst_amount | default(0) }};
+
+        if (amount > 0 || gst > 0) {
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Base Amount', 'GST'],
+                    datasets: [{
+                        data: [amount, gst]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+        }
+    }
+
+});
+</script>
+
+<!-- 📘 SEO + INFO SECTION -->
+<div class="container mt-5 text-white">
+
+    <h2 class="mb-3">What is GST?</h2>
+    <p>
+        GST (Goods and Services Tax) is an indirect tax applied on the supply of goods
+        and services. It simplifies the tax system by replacing multiple taxes with a
+        single unified tax structure.
+    </p>
+
+    <img src="https://images.unsplash.com/photo-1556745757-8d76bdb6984b?q=80&w=1000"
+         class="img-fluid rounded shadow my-4"
+         alt="GST calculation and invoice">
+
+    <h3>Why Use a GST Calculator?</h3>
+    <ul>
+        <li>Calculate tax instantly without manual effort</li>
+        <li>Know the final payable amount quickly</li>
+        <li>Useful for businesses and daily transactions</li>
+        <li>Avoid calculation errors</li>
+    </ul>
+
+</div>
+
+{% endblock %}

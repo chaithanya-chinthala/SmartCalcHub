@@ -1,0 +1,242 @@
+/* 🌌 GLOBAL BACKGROUND */
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, rgba(15,23,42,0.85), rgba(0,0,0,0.85)),
+                url("https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=1400");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    margin: 0;
+    padding: 0;
+    color: white;
+}
+
+/* 🌟 HERO */
+.hero {
+    padding: 100px 20px;
+    text-align: center;
+}
+
+.hero h1 {
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.hero p {
+    opacity: 0.9;
+    font-size: 18px;
+}
+
+/* 🧊 GLASS CARD */
+.card {
+    border-radius: 18px;
+    backdrop-filter: blur(12px);
+    background: rgba(255, 255, 255, 0.96);
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 18px 40px rgba(0,0,0,0.35);
+}
+
+/* 📝 CARD TEXT */
+.card h3,
+.card h4,
+.card h5,
+.card p,
+.card h6,
+.card strong {
+    color: #1a1a1a;
+}
+
+/* 🎯 RESULT BOX */
+.result-box {
+    background: linear-gradient(135deg, #4facfe, #00c6ff);
+    padding: 22px;
+    border-radius: 14px;
+    color: white;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+}
+
+.result-box h2 {
+    margin: 0;
+    font-size: 30px;
+}
+
+/* 🔘 BUTTONS */
+.btn {
+    border-radius: 10px;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+}
+
+/* 🔝 NAVBAR */
+.navbar {
+    background: rgba(0,0,0,0.85) !important;
+    backdrop-filter: blur(10px);
+}
+
+/* 🔗 NAV LINKS */
+.nav-link {
+    transition: 0.3s;
+}
+
+.nav-link:hover {
+    color: #00c6ff !important;
+}
+
+/* 🔍 INPUTS */
+input.form-control {
+    border-radius: 10px;
+    padding: 12px;
+    font-size: 16px;
+    border: none;
+}
+
+/* 📊 CHART */
+canvas {
+    background: white;
+    border-radius: 12px;
+    padding: 10px;
+}
+
+/* 📦 SMALL BOXES */
+.bg-light {
+    background: #f1f5f9 !important;
+    border-radius: 12px;
+}
+
+/* 🖼 IMAGES */
+img {
+    border-radius: 14px;
+    transition: 0.3s;
+}
+
+img:hover {
+    transform: scale(1.02);
+}
+
+/* 📸 TOOL IMAGE GRID */
+.tool-img {
+    position: relative;
+    overflow: hidden;
+    border-radius: 14px;
+}
+
+.tool-img img {
+    width: 100%;
+    height: 130px;
+    object-fit: cover;
+    transition: 0.4s;
+}
+
+.tool-img:hover img {
+    transform: scale(1.12);
+}
+
+/* 🔥 OVERLAY */
+.overlay {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background: rgba(0,0,0,0.65);
+    color: white;
+    text-align: center;
+    padding: 10px;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+/* 🔻 FOOTER */
+footer {
+    background: #0f172a;
+}
+
+footer h5, footer h6 {
+    font-weight: 600;
+}
+
+footer ul {
+    padding-left: 0;
+}
+
+footer li {
+    list-style: none;
+    margin-bottom: 6px;
+}
+
+footer a {
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+footer a:hover {
+    text-decoration: underline;
+    color: #00c6ff !important;
+}
+
+/* 📊 SECTION */
+.section {
+    padding: 70px 0;
+}
+
+/* 💻 FORCE 5 IMAGES PERFECTLY */
+@media (min-width: 992px) {
+    .tool-row {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        flex-wrap: nowrap;
+    }
+
+    .tool-row .col-lg-2 {
+        flex: 0 0 18%;
+        max-width: 18%;
+    }
+}
+
+/* 📱 MOBILE */
+@media (max-width: 768px) {
+
+    .hero {
+        padding: 60px 15px;
+    }
+
+    .hero h1 {
+        font-size: 26px;
+    }
+
+    .hero p {
+        font-size: 14px;
+    }
+
+    .card {
+        padding: 18px !important;
+    }
+
+    .btn {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    canvas {
+        max-height: 220px;
+    }
+
+    .tool-img img {
+        height: 110px;
+    }
+}
+
+/* 🧠 SMOOTH SCROLL */
+html {
+    scroll-behavior: smooth;
+}

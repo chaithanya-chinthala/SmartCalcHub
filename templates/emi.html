@@ -1,0 +1,150 @@
+{% extends "base.html" %}
+
+{% block title %}EMI Calculator - CalcNova{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid mt-4 px-3 px-md-5">
+  <div class="row">
+
+    <!-- LEFT: FORM -->
+    <div class="col-12 col-md-6 mb-4">
+      <div class="card p-4 p-md-5 shadow-lg border-0">
+        <h3><i class="bi bi-cash-stack text-primary"></i> EMI Calculator</h3>
+        <p class="text-muted small">
+          Calculate your monthly loan EMI instantly with accurate breakdown.
+        </p>
+
+        <form method="POST">
+
+          <input type="number" class="form-control mb-3"
+                 name="principal" step="any" min="0"
+                 placeholder="Loan Amount (₹)" required>
+
+          <input type="number" class="form-control mb-3"
+                 name="rate" step="any" min="0" max="100"
+                 placeholder="Interest Rate (%)" required>
+
+          <input type="number" class="form-control mb-3"
+                 name="time" min="1"
+                 placeholder="Time (months)" required>
+
+          <button class="btn btn-primary w-100">Calculate EMI</button>
+
+        </form>
+
+        <!-- ❗ ERROR -->
+        {% if error %}
+          <div class="alert alert-danger mt-3">
+            {{ error }}
+          </div>
+        {% endif %}
+
+      </div>
+    </div>
+
+    <!-- RIGHT: RESULT -->
+    <div class="col-12 col-md-6 mb-4">
+      <div class="card p-4 shadow text-center">
+
+        <h3>Result</h3>
+
+        {% if result is not none %}
+
+        <!-- 🎯 RESULT BOX -->
+        <div class="result-box mt-3">
+            <h2 class="fw-bold">₹ {{ result }}</h2>
+            <p class="mb-0">Monthly EMI</p>
+        </div>
+
+        <hr>
+
+        <!-- 📊 BREAKDOWN -->
+        <div class="row text-center mt-3">
+            <div class="col-6">
+                <div class="p-3 bg-light rounded">
+                    <h6>Principal</h6>
+                    <strong>₹ {{ principal }}</strong>
+                </div>
+            </div>
+
+            <div class="col-6">
+                <div class="p-3 bg-light rounded">
+                    <h6>Interest</h6>
+                    <strong>₹ {{ interest }}</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- 📈 CHART -->
+        <canvas id="emiChart" class="mt-4 w-100" style="max-height:250px;"></canvas>
+
+        {% else %}
+            <p class="text-muted mt-4">Your EMI will appear here</p>
+        {% endif %}
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- 📊 CHART SCRIPT -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const ctx = document.getElementById('emiChart');
+
+    if (ctx) {
+        const principal = {{ principal | default(0) }};
+        const interest = {{ interest | default(0) }};
+
+        if (principal > 0 || interest > 0) {
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Principal', 'Interest'],
+                    datasets: [{
+                        data: [principal, interest]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+        }
+    }
+
+});
+</script>
+
+<!-- 📘 SEO + INFO SECTION -->
+<div class="container mt-5 text-white">
+
+    <h2 class="mb-3">What is EMI?</h2>
+    <p>
+        EMI (Equated Monthly Installment) is the fixed monthly payment made towards a loan.
+        It consists of both the principal amount and interest. Using an EMI calculator helps
+        you plan your finances better before taking a loan.
+    </p>
+
+    <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=1000"
+         class="img-fluid rounded shadow my-4"
+         alt="EMI calculation illustration">
+
+    <h3>Why Use an EMI Calculator?</h3>
+    <ul>
+        <li>Understand your monthly payment instantly</li>
+        <li>Compare loan options easily</li>
+        <li>Plan your budget effectively</li>
+        <li>Visualize principal vs interest</li>
+    </ul>
+
+</div>
+
+{% endblock %}
