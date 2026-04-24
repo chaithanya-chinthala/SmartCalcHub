@@ -1,96 +1,97 @@
 {% extends "base.html" %}
+{% block content %}
 
-{% block title %}BMI Calculator - CalcNova{% endblock %}
+<h2>BMI Calculator</h2>
+
+<form method="POST">
+<input name="weight" class="form-control mb-2">
+<input name="height" class="form-control mb-2">
+<button class="btn btn-danger w-100">Calculate</button>
+</form>
+
+{% if bmi %}
+<h3>{{ bmi }} - {{ category }}</h3>
+{% endif %}
+
+{% endblock %}{% extends "base.html" %}
+
+{% block title %}BMI Calculator - Check Your Body Mass Index | CalcNova{% endblock %}
+
+{% block description %}
+Calculate your Body Mass Index (BMI) instantly. Check if you are underweight, normal, overweight, or obese with our free BMI calculator.
+{% endblock %}
 
 {% block content %}
-<div class="container-fluid mt-4 px-3 px-md-5">
-  <div class="row">
 
-    <!-- LEFT: FORM -->
-    <div class="col-12 col-md-6 mb-4">
-      <div class="card p-4 p-md-5 shadow-lg border-0">
-        <h3><i class="bi bi-heart-pulse text-danger"></i> BMI Calculator</h3>
-        <p class="text-muted small">
-          Enter your weight and height to check your Body Mass Index (BMI).
-        </p>
+<!-- 🔥 HERO -->
+<div class="text-center py-4 py-md-5">
+    <h1 class="fw-bold">🏋️ BMI Calculator</h1>
+    <p class="text-muted">
+        Check your Body Mass Index (BMI) and understand your health status instantly.
+    </p>
+</div>
+
+<div class="container">
+  <div class="row g-4">
+
+    <!-- 🧮 FORM -->
+    <div class="col-12 col-lg-5">
+      <div class="card shadow-lg border-0 p-4 p-md-5">
+
+        <h4 class="mb-3">Enter Your Details</h4>
 
         <form method="POST">
-          <input type="number" step="any" class="form-control mb-3" name="weight" placeholder="Weight (kg)" required>
-          <input type="number" step="any" class="form-control mb-3" name="height" placeholder="Height (cm)" required>
 
-          <button class="btn btn-success w-100">Calculate BMI</button>
+          <label class="small mb-1">Weight (kg)</label>
+          <input type="number" name="weight" step="any" class="form-control mb-3" required>
+
+          <label class="small mb-1">Height (cm)</label>
+          <input type="number" name="height" step="any" class="form-control mb-3" required>
+
+          <button class="btn btn-danger w-100 py-2 fw-bold">
+              Calculate BMI
+          </button>
+
         </form>
+
       </div>
     </div>
 
-    <!-- RIGHT: RESULT -->
-    <div class="col-12 col-md-6 mb-4">
-      <div class="card p-4 shadow text-center">
-        <h3>Result</h3>
+    <!-- 📊 RESULT -->
+    <div class="col-12 col-lg-7">
+      <div class="card shadow border-0 p-4 text-center">
 
-        {% if bmi is not none %}
+        <h4>Result</h4>
+
+        {% if bmi %}
 
         <!-- 🎯 RESULT BOX -->
         <div class="result-box mt-3">
-            <h2>{{ bmi }}</h2>
+            <h2 class="fw-bold">{{ bmi }}</h2>
             <p class="mb-0">{{ category }}</p>
         </div>
 
-        <!-- 📊 INFO BOXES -->
-        <div class="row text-center mt-4">
+        <!-- 📊 INFO -->
+        <div class="row mt-4 text-center">
+
             <div class="col-6">
-                <div class="p-3 bg-light rounded">
+                <div class="p-3 bg-light rounded shadow-sm">
                     <h6>Your BMI</h6>
                     <strong>{{ bmi }}</strong>
                 </div>
             </div>
 
             <div class="col-6">
-                <div class="p-3 bg-light rounded">
+                <div class="p-3 bg-light rounded shadow-sm">
                     <h6>Status</h6>
                     <strong>{{ category }}</strong>
                 </div>
             </div>
+
         </div>
 
-        <!-- 📈 BETTER CHART (Comparison Style) -->
+        <!-- 📈 CHART -->
         <canvas id="bmiChart" class="mt-4 w-100" style="max-height:250px;"></canvas>
-
-        <script>
-        document.addEventListener("DOMContentLoaded", function () {
-
-            const ctx = document.getElementById("bmiChart");
-
-            if (ctx) {
-                const bmiValue = {{ bmi | default(0) }};
-
-                new Chart(ctx, {
-                    type: 'bar',
-                    data: {
-                        labels: ['Underweight', 'Normal', 'Overweight', 'Obese', 'You'],
-                        datasets: [{
-                            label: 'BMI Scale',
-                            data: [18.5, 24.9, 29.9, 35, bmiValue],
-                            borderWidth: 1
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        plugins: {
-                            legend: { display: false }
-                        },
-                        scales: {
-                            y: {
-                                beginAtZero: true,
-                                suggestedMax: 40
-                            }
-                        }
-                    }
-                });
-            }
-
-        });
-        </script>
 
         {% else %}
         <p class="text-muted mt-4">Your BMI result will appear here</p>
@@ -101,4 +102,79 @@
 
   </div>
 </div>
+
+<!-- 📊 CHART -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const ctx = document.getElementById('bmiChart');
+
+    if (ctx) {
+        const bmi = {{ bmi | default(0) }};
+
+        if (bmi > 0) {
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Underweight', 'Normal', 'Overweight', 'Obese', 'You'],
+                    datasets: [{
+                        data: [18.5, 24.9, 29.9, 35, bmi],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            suggestedMax: 40
+                        }
+                    }
+                }
+            });
+        }
+    }
+});
+</script>
+
+<!-- 📘 SEO CONTENT -->
+<div class="container mt-5">
+
+    <h2>What is BMI?</h2>
+    <p>
+        BMI (Body Mass Index) is a simple measurement that uses your weight and height
+        to determine whether you have a healthy body weight.
+    </p>
+
+    <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=80&w=1200"
+         class="img-fluid rounded shadow my-4"
+         style="max-height:300px; object-fit:cover;">
+
+    <h3>How is BMI Calculated?</h3>
+    <p>
+        BMI is calculated using the formula:
+    </p>
+
+    <p><strong>BMI = Weight (kg) / Height (m²)</strong></p>
+
+    <h3>BMI Categories</h3>
+    <ul>
+        <li>Underweight: BMI less than 18.5</li>
+        <li>Normal weight: BMI between 18.5 and 24.9</li>
+        <li>Overweight: BMI between 25 and 29.9</li>
+        <li>Obese: BMI 30 or higher</li>
+    </ul>
+
+    <h3>Why Use a BMI Calculator?</h3>
+    <ul>
+        <li>Quick health assessment</li>
+        <li>Easy to use</li>
+        <li>Helps track fitness goals</li>
+        <li>Useful for daily health monitoring</li>
+    </ul>
+
+</div>
+
 {% endblock %}

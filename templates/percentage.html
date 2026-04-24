@@ -1,65 +1,67 @@
 {% extends "base.html" %}
 
-{% block title %}Percentage Calculator - CalcNova{% endblock %}
+{% block title %}Percentage Calculator - Calculate Percent Online | CalcNova{% endblock %}
+
+{% block description %}
+Free percentage calculator to find percentage, increase, decrease, and ratios instantly. Fast, accurate, and easy to use.
+{% endblock %}
 
 {% block content %}
 
-<div class="container-fluid mt-4 px-3 px-md-5">
-  <div class="row">
+<!-- 🔥 HERO -->
+<div class="text-center py-4 py-md-5">
+    <h1 class="fw-bold">📊 Percentage Calculator</h1>
+    <p class="text-muted">
+        Calculate percentages instantly for exams, finance, discounts, and daily use.
+    </p>
+</div>
 
-    <!-- LEFT: FORM -->
-    <div class="col-12 col-md-6 mb-4">
-      <div class="card p-3 p-md-5 shadow-lg border-0">
+<div class="container">
+  <div class="row g-4">
 
-        <h3 class="mb-3">
-          <i class="bi bi-percent text-warning"></i> Percentage Calculator
-        </h3>
+    <!-- 🧮 FORM -->
+    <div class="col-12 col-lg-5">
+      <div class="card shadow-lg border-0 p-4 p-md-5">
 
-        <p class="text-muted small">
-          Quickly calculate percentage of any value.
-        </p>
+        <h4 class="mb-3">Enter Values</h4>
 
         <form method="POST">
 
-          <input type="number" class="form-control mb-3"
-                 name="part" step="any" min="0"
-                 placeholder="Part Value" required>
+          <label class="small mb-1">Part Value</label>
+          <input type="number" name="part" step="any" class="form-control mb-3" required>
 
-          <input type="number" class="form-control mb-3"
-                 name="whole" step="any" min="0"
-                 placeholder="Total Value" required>
+          <label class="small mb-1">Total Value</label>
+          <input type="number" name="whole" step="any" class="form-control mb-3" required>
 
-          <button class="btn btn-warning w-100 fw-bold">
-            Calculate Percentage
+          <button class="btn btn-warning w-100 py-2 fw-bold">
+              Calculate Percentage
           </button>
 
         </form>
 
         {% if error %}
-        <div class="alert alert-danger mt-3">
-          {{ error }}
-        </div>
+        <div class="alert alert-danger mt-3">{{ error }}</div>
         {% endif %}
 
       </div>
     </div>
 
-    <!-- RIGHT: RESULT -->
-    <div class="col-12 col-md-6 mb-4">
-      <div class="card p-4 shadow text-center">
+    <!-- 📊 RESULT -->
+    <div class="col-12 col-lg-7">
+      <div class="card shadow border-0 p-4 text-center">
 
-        <h3>Result</h3>
+        <h4>Result</h4>
 
         {% if result is not none %}
 
-        <!-- 🎯 RESULT BOX -->
+        <!-- 🎯 MAIN RESULT -->
         <div class="result-box mt-3">
             <h2 class="fw-bold">{{ result }}%</h2>
             <p class="mb-0">Calculated Percentage</p>
         </div>
 
         <!-- 📊 BREAKDOWN -->
-        <div class="row text-center mt-4">
+        <div class="row mt-4 text-center">
 
             <div class="col-6">
                 <div class="p-3 bg-light rounded shadow-sm">
@@ -81,7 +83,7 @@
         <canvas id="percentageChart" class="mt-4 w-100" style="max-height:250px;"></canvas>
 
         {% else %}
-            <p class="text-muted mt-4">Percentage result will appear here</p>
+        <p class="text-muted mt-4">Your percentage result will appear here</p>
         {% endif %}
 
       </div>
@@ -90,10 +92,9 @@
   </div>
 </div>
 
-<!-- 📊 SCRIPT (SAFE VERSION - NO ERRORS) -->
+<!-- 📊 CHART -->
 <script>
 document.addEventListener("DOMContentLoaded", function () {
-
     const ctx = document.getElementById('percentageChart');
 
     if (ctx) {
@@ -110,32 +111,54 @@ document.addEventListener("DOMContentLoaded", function () {
                 },
                 options: {
                     responsive: true,
-                    maintainAspectRatio: false
+                    plugins: {
+                        legend: { position: 'bottom' }
+                    }
                 }
             });
         }
     }
-
 });
 </script>
 
 <!-- 📘 SEO CONTENT -->
-<div class="container mt-5 text-white">
+<div class="container mt-5">
 
     <h2>What is Percentage?</h2>
     <p>
-        A percentage represents a number as a fraction of 100.
-        It is commonly used in mathematics, finance, statistics, and everyday life.
+        A percentage is a number expressed as a fraction of 100.
+        It is widely used in mathematics, finance, statistics, and everyday calculations.
     </p>
 
-    <img src="https://images.unsplash.com/photo-1509228468518-180dd4864904?q=80&w=800"
-         class="img-fluid rounded shadow my-3">
+    <img src="https://images.unsplash.com/photo-1509228468518-180dd4864904?q=80&w=1200"
+         class="img-fluid rounded shadow my-4"
+         style="max-height:300px; object-fit:cover;">
 
-    <h3>Why Use This Calculator?</h3>
+    <h3>How to Calculate Percentage?</h3>
     <ul>
-        <li>Instant percentage calculation</li>
-        <li>Accurate results</li>
-        <li>Useful for exams, discounts, and analytics</li>
+        <li>Divide the part value by the total value</li>
+        <li>Multiply the result by 100</li>
+        <li>Get your percentage instantly</li>
+    </ul>
+
+    <h3>Percentage Formula</h3>
+    <p>
+        Percentage = (Part / Whole) × 100
+    </p>
+
+    <h3>Where is Percentage Used?</h3>
+    <ul>
+        <li>Exam scores and results</li>
+        <li>Discounts and offers</li>
+        <li>Profit and loss calculations</li>
+        <li>Data analysis and statistics</li>
+    </ul>
+
+    <h3>Benefits of This Calculator</h3>
+    <ul>
+        <li>Instant and accurate results</li>
+        <li>Easy to use on mobile</li>
+        <li>Helpful for students and professionals</li>
     </ul>
 
 </div>

@@ -1,98 +1,84 @@
 {% extends "base.html" %}
 
-{% block title %}Age Calculator - CalcNova{% endblock %}
+{% block title %}Age Calculator - Calculate Exact Age Online | CalcNova{% endblock %}
+
+{% block description %}
+Free age calculator to find your exact age in years, months, and days. Simple, fast, and accurate.
+{% endblock %}
 
 {% block content %}
-<div class="container-fluid mt-4 px-3 px-md-5">
-  <div class="row">
 
-    <!-- LEFT: FORM -->
-    <div class="col-12 col-md-6 mb-4">
-      <div class="card p-4 p-md-5 shadow-lg border-0">
-        <h3><i class="bi bi-calendar text-primary"></i> Age Calculator</h3>
-        <p class="text-muted small">Enter your date of birth to calculate your exact age instantly.</p>
+<!-- 🔥 HERO -->
+<div class="text-center py-4 py-md-5">
+    <h1 class="fw-bold">🎂 Age Calculator</h1>
+    <p class="text-muted">
+        Find your exact age in years, months, and days instantly.
+    </p>
+</div>
+
+<div class="container">
+  <div class="row g-4">
+
+    <!-- 🧮 FORM -->
+    <div class="col-12 col-lg-5">
+      <div class="card shadow-lg border-0 p-4 p-md-5">
+
+        <h4 class="mb-3">Enter Your Date of Birth</h4>
 
         <form method="POST">
-          <input type="date" class="form-control mb-3" name="dob" required>
-          <button class="btn btn-primary w-100">Calculate Age</button>
+          <label class="small mb-1">Date of Birth</label>
+          <input type="date" name="dob" class="form-control mb-3" required>
+
+          <button class="btn btn-info w-100 py-2 fw-bold">
+              Calculate Age
+          </button>
         </form>
+
       </div>
     </div>
 
-    <!-- RIGHT: RESULT -->
-    <div class="col-12 col-md-6 mb-4">
-      <div class="card p-4 shadow text-center">
-        <h3>Result</h3>
+    <!-- 📊 RESULT -->
+    <div class="col-12 col-lg-7">
+      <div class="card shadow border-0 p-4 text-center">
+
+        <h4>Result</h4>
 
         {% if years is not none %}
 
-        <!-- 🎯 RESULT BOX -->
+        <!-- 🎯 MAIN RESULT -->
         <div class="result-box mt-3">
-            <h2>{{ years }} Years</h2>
+            <h2 class="fw-bold">{{ years }} Years</h2>
             <p class="mb-0">{{ months }} Months • {{ days }} Days</p>
         </div>
 
-        <!-- 📊 BREAKDOWN BOXES -->
-        <div class="row text-center mt-4">
-          <div class="col-4">
-            <div class="p-3 bg-light rounded">
-              <h6>Years</h6>
-              <strong>{{ years }}</strong>
+        <!-- 📊 BREAKDOWN -->
+        <div class="row mt-4 text-center">
+
+            <div class="col-4">
+                <div class="p-3 bg-light rounded shadow-sm">
+                    <h6>Years</h6>
+                    <strong>{{ years }}</strong>
+                </div>
             </div>
-          </div>
-          <div class="col-4">
-            <div class="p-3 bg-light rounded">
-              <h6>Months</h6>
-              <strong>{{ months }}</strong>
+
+            <div class="col-4">
+                <div class="p-3 bg-light rounded shadow-sm">
+                    <h6>Months</h6>
+                    <strong>{{ months }}</strong>
+                </div>
             </div>
-          </div>
-          <div class="col-4">
-            <div class="p-3 bg-light rounded">
-              <h6>Days</h6>
-              <strong>{{ days }}</strong>
+
+            <div class="col-4">
+                <div class="p-3 bg-light rounded shadow-sm">
+                    <h6>Days</h6>
+                    <strong>{{ days }}</strong>
+                </div>
             </div>
-          </div>
+
         </div>
 
         <!-- 📈 CHART -->
         <canvas id="ageChart" class="mt-4 w-100" style="max-height:250px;"></canvas>
-
-        <script>
-        document.addEventListener("DOMContentLoaded", function () {
-
-            const ctx = document.getElementById("ageChart");
-
-            if (ctx) {
-                const years = {{ years | default(0) }};
-                const months = {{ months | default(0) }};
-                const days = {{ days | default(0) }};
-
-                new Chart(ctx, {
-                    type: 'bar',
-                    data: {
-                        labels: ['Years', 'Months', 'Days'],
-                        datasets: [{
-                            label: 'Age Breakdown',
-                            data: [years, months, days],
-                            borderWidth: 1
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        plugins: {
-                            legend: { display: false }
-                        },
-                        scales: {
-                            y: {
-                                beginAtZero: true
-                            }
-                        }
-                    }
-                });
-            }
-
-        });
-        </script>
 
         {% else %}
         <p class="text-muted mt-4">Your age will appear here</p>
@@ -103,4 +89,71 @@
 
   </div>
 </div>
+
+<!-- 📊 CHART -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const ctx = document.getElementById('ageChart');
+
+    if (ctx) {
+        const years = {{ years | default(0) }};
+        const months = {{ months | default(0) }};
+        const days = {{ days | default(0) }};
+
+        if (years > 0 || months > 0 || days > 0) {
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Years', 'Months', 'Days'],
+                    datasets: [{
+                        data: [years, months, days],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+    }
+});
+</script>
+
+<!-- 📘 SEO CONTENT -->
+<div class="container mt-5">
+
+    <h2>What is an Age Calculator?</h2>
+    <p>
+        An age calculator is a tool that calculates your exact age based on your date of birth.
+        It provides results in years, months, and days.
+    </p>
+
+    <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1200"
+         class="img-fluid rounded shadow my-4"
+         style="max-height:300px; object-fit:cover;">
+
+    <h3>How Does It Work?</h3>
+    <ul>
+        <li>Enter your date of birth</li>
+        <li>Compare it with today’s date</li>
+        <li>Calculate the difference</li>
+    </ul>
+
+    <h3>Why Use an Age Calculator?</h3>
+    <ul>
+        <li>Know your exact age instantly</li>
+        <li>Useful for forms and official purposes</li>
+        <li>Track milestones and events</li>
+    </ul>
+
+</div>
+
 {% endblock %}

@@ -1,154 +1,130 @@
 {% extends "base.html" %}
-{% block title %}Home - CalcNova{% endblock %}
+
+{% block title %}CalcNova - Free EMI, SIP, GST, CGPA & BMI Calculator Online{% endblock %}
+
+{% block description %}
+CalcNova is a free online calculator platform offering EMI, SIP, GST, CGPA, BMI, Percentage and Age calculators. Fast, accurate, mobile-friendly tools for students, investors and professionals.
+{% endblock %}
 
 {% block content %}
 
-<!-- 🔥 HERO -->
-<div class="hero text-center d-flex flex-column justify-content-center align-items-center"
-     style="min-height: 65vh; background: rgba(0,0,0,0.65);">
+<!-- 🌟 HERO -->
+<div class="hero-section text-center d-flex flex-column justify-content-center align-items-center px-3">
 
-    <h1 class="fw-bold display-4">🚀 CalcNova</h1>
-    <p class="lead">Smart Calculators for Finance, Health & Daily Needs</p>
+    <h1 class="fw-bold display-1 mb-3">🚀 CalcNova</h1>
 
-    <div class="mt-4">
-        <a href="/emi-calculator" class="btn btn-primary m-2">💰 EMI</a>
-        <a href="/gst-calculator" class="btn btn-success m-2">🧾 GST</a>
-        <a href="/percentage-calculator" class="btn btn-warning m-2">% Percentage</a>
-        <a href="/age-calculator" class="btn btn-info m-2">🎂 Age</a>
-        <a href="/bmi-calculator" class="btn btn-danger m-2">🏋️ BMI</a>
+    <p class="lead text-light mb-3">
+        One Platform for All Smart Calculations
+    </p>
+
+    <p class="text-light small mb-4" style="max-width:750px;">
+        Calculate EMI loans, SIP investments, GST tax, CGPA grades, BMI health index, percentage scores and more —
+        instantly, accurately and completely free. Built for students, professionals and financial planning.
+    </p>
+
+    <!-- CTA -->
+    <div class="d-flex flex-wrap justify-content-center gap-3">
+
+        <a href="#tools" class="btn btn-primary btn-lg px-4">
+            🚀 Explore Tools
+        </a>
+
+        <a href="/emi-calculator" class="btn btn-outline-light btn-lg px-4">
+            💰 Start EMI
+        </a>
+
     </div>
 
 </div>
 
-<!-- 📸 TOOL IMAGE GRID -->
-<div class="container mt-5">
-    <h2 class="text-center mb-4">Explore Tools</h2>
-
-    <div class="tool-row mt-4">
-
-        <div class="col-6 col-md-4 col-lg-2">
-            <a href="/emi-calculator">
-                <div class="tool-img">
-                    <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=600">
-                    <div class="overlay">EMI</div>
-                </div>
-            </a>
-        </div>
-
-        <div class="col-6 col-md-4 col-lg-2">
-            <a href="/gst-calculator">
-                <div class="tool-img">
-                    <img src="https://images.unsplash.com/photo-1556745757-8d76bdb6984b?q=80&w=600">
-                    <div class="overlay">GST</div>
-                </div>
-            </a>
-        </div>
-
-        <div class="col-6 col-md-4 col-lg-2">
-            <a href="/percentage-calculator">
-                <div class="tool-img">
-                    <img src="https://images.unsplash.com/photo-1509228468518-180dd4864904?q=80&w=600">
-                    <div class="overlay">%</div>
-                </div>
-            </a>
-        </div>
-
-        <div class="col-6 col-md-4 col-lg-2">
-            <a href="/age-calculator">
-                <div class="tool-img">
-                    <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=600">
-                    <div class="overlay">Age</div>
-                </div>
-            </a>
-        </div>
-
-        <div class="col-6 col-md-4 col-lg-2">
-            <a href="/bmi-calculator">
-                <div class="tool-img">
-                    <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=80&w=600">
-                    <div class="overlay">BMI</div>
-                </div>
-            </a>
-        </div>
-
-    </div>
-</div>
-
-<!-- 🧩 TOOL CARDS -->
-<div class="container-fluid mt-5 px-3 px-md-5">
-  <div class="row text-center">
-
-    <div class="col-12 col-md-4 mb-4">
-      <a href="/emi-calculator" class="text-decoration-none text-dark">
-        <div class="card shadow h-100 p-4">
-            <i class="bi bi-cash-stack fs-1 text-primary"></i>
-            <h4 class="mt-3">EMI Calculator</h4>
-            <p class="text-muted">Plan your loans with detailed EMI breakdown.</p>
-        </div>
-      </a>
-    </div>
-
-    <div class="col-12 col-md-4 mb-4">
-      <a href="/gst-calculator" class="text-decoration-none text-dark">
-        <div class="card shadow h-100 p-4">
-            <i class="bi bi-receipt fs-1 text-success"></i>
-            <h4 class="mt-3">GST Calculator</h4>
-            <p class="text-muted">Calculate GST quickly and accurately.</p>
-        </div>
-      </a>
-    </div>
-
-    <div class="col-12 col-md-4 mb-4">
-      <a href="/percentage-calculator" class="text-decoration-none text-dark">
-        <div class="card shadow h-100 p-4">
-            <i class="bi bi-percent fs-1 text-warning"></i>
-            <h4 class="mt-3">Percentage Calculator</h4>
-            <p class="text-muted">Instant percentage calculations.</p>
-        </div>
-      </a>
-    </div>
-
-  </div>
-</div>
-
-<!-- ⭐ WHY SECTION -->
+<!-- 📊 FEATURES -->
 <div class="container mt-5 text-center">
 
     <h2 class="mb-4">Why Choose CalcNova?</h2>
 
-    <div class="row">
+    <div class="row g-4">
 
-        <div class="col-md-4 mb-3">
-            <i class="bi bi-lightning-charge fs-1"></i>
-            <h5>Fast</h5>
-            <p>Get instant results without delay.</p>
+        <div class="col-12 col-md-4">
+            <div class="card p-4 shadow-sm h-100 feature-card">
+                <i class="bi bi-lightning-charge fs-1 text-primary"></i>
+                <h5 class="mt-3">Fast & Instant</h5>
+                <p class="text-muted">Get results in milliseconds with optimized calculations</p>
+            </div>
         </div>
 
-        <div class="col-md-4 mb-3">
-            <i class="bi bi-phone fs-1"></i>
-            <h5>Responsive</h5>
-            <p>Works perfectly on mobile & desktop.</p>
+        <div class="col-12 col-md-4">
+            <div class="card p-4 shadow-sm h-100 feature-card">
+                <i class="bi bi-phone fs-1 text-success"></i>
+                <h5 class="mt-3">Mobile Friendly</h5>
+                <p class="text-muted">Perfect experience across all devices and screen sizes</p>
+            </div>
         </div>
 
-        <div class="col-md-4 mb-3">
-            <i class="bi bi-graph-up fs-1"></i>
-            <h5>Visual</h5>
-            <p>Charts for better understanding.</p>
+        <div class="col-12 col-md-4">
+            <div class="card p-4 shadow-sm h-100 feature-card">
+                <i class="bi bi-graph-up fs-1 text-warning"></i>
+                <h5 class="mt-3">Highly Accurate</h5>
+                <p class="text-muted">Reliable results for finance, education and health</p>
+            </div>
         </div>
 
     </div>
-
 </div>
 
-<!-- 📘 SEO CONTENT SECTION -->
-<div class="container mt-5 mb-5">
+<!-- 🧩 TOOLS SECTION -->
+<div class="container mt-5" id="tools">
 
-    <h2 class="text-center mb-4">Free Online Calculators</h2>
+    <h2 class="text-center mb-2">Popular Calculators</h2>
+    <p class="text-center text-muted mb-4">
+        Choose a calculator and get instant results
+    </p>
 
-    <p class="text-center">
-        CalcNova provides a collection of powerful online calculators including EMI calculator, GST calculator,
-        percentage calculator, age calculator, and BMI calculator. These tools are designed to help you make better
-        financial and health decisions quickly and accurately.
+    <div class="row g-4 justify-content-center">
+
+        {% set tools = [
+            ("/emi-calculator","EMI Calculator","bi-cash-stack","text-primary","Plan your loans smartly"),
+            ("/gst-calculator","GST Calculator","bi-receipt","text-success","Instant tax calculation"),
+            ("/percentage-calculator","Percentage","bi-percent","text-warning","Quick percentage results"),
+            ("/age-calculator","Age Calculator","bi-calendar","text-info","Find exact age instantly"),
+            ("/bmi-calculator","BMI Calculator","bi-heart-pulse","text-danger","Check your body health"),
+            ("/sip-calculator","SIP Calculator","bi-graph-up-arrow","text-info","Grow your investments"),
+            ("/cgpa-calculator","CGPA Calculator","bi-mortarboard","text-danger","Convert grades easily")
+        ] %}
+
+        {% for link, name, icon, color, desc in tools %}
+
+        <div class="col-6 col-md-4 col-lg-3">
+
+            <a href="{{ link }}" class="text-decoration-none text-dark">
+
+                <div class="card h-100 shadow-sm p-3 text-center tool-card-hover">
+
+                    <i class="bi {{ icon }} fs-1 {{ color }}"></i>
+
+                    <h6 class="mt-3 fw-bold">{{ name }}</h6>
+
+                    <p class="small text-muted">{{ desc }}</p>
+
+                </div>
+
+            </a>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+</div>
+
+<!-- 📘 SEO CONTENT -->
+<div class="container mt-5 mb-5 text-center">
+
+    <h2>Free Online Calculators</h2>
+
+    <p class="text-muted" style="max-width:800px; margin:auto;">
+        CalcNova is a modern free calculator platform designed for EMI calculation, SIP investment planning,
+        GST tax calculation, CGPA conversion, BMI health tracking, percentage solving and age calculation.
+        It is optimized for speed, mobile usage and SEO ranking.
     </p>
 
 </div>

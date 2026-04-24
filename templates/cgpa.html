@@ -1,0 +1,181 @@
+{% extends "base.html" %}
+
+{% block title %}CGPA Calculator - GPA to Percentage Converter | CalcNova{% endblock %}
+
+{% block description %}
+Use CalcNova CGPA Calculator to convert GPA/CGPA into percentage instantly. Accurate, fast and student-friendly academic calculator.
+{% endblock %}
+
+{% block content %}
+
+<!-- 🌟 HEADER -->
+<div class="container text-center mt-4">
+
+    <h1 class="fw-bold">🎓 CGPA Calculator</h1>
+
+    <p class="text-muted">
+        Convert CGPA / GPA into percentage instantly and accurately
+    </p>
+
+</div>
+
+<!-- MAIN -->
+<div class="container-fluid mt-4 px-3 px-md-5">
+  <div class="row g-4">
+
+    <!-- LEFT FORM -->
+    <div class="col-12 col-md-6">
+      <div class="card p-4 p-md-5 shadow-lg border-0">
+
+        <h3 class="fw-bold">Enter Academic Details</h3>
+
+        <p class="text-muted small">
+            Enter your CGPA or GPA value to calculate equivalent percentage.
+        </p>
+
+        <form method="POST">
+
+          <input type="number" step="any" class="form-control mb-3"
+                 name="cgpa" placeholder="Enter CGPA (e.g. 8.5)" required>
+
+          <button class="btn btn-primary w-100 fw-bold">
+            🎓 Convert to Percentage
+          </button>
+
+        </form>
+
+        {% if error %}
+        <div class="alert alert-danger mt-3">{{ error }}</div>
+        {% endif %}
+
+      </div>
+    </div>
+
+  <!-- RIGHT RESULT -->
+<div class="col-12 col-md-6">
+
+  <div class="card p-4 shadow text-center h-100">
+
+    <h3 class="mb-3">Result</h3>
+
+        {% if result %}
+
+        <!-- RESULT BOX -->
+        <div class="result-box mt-3 p-3 bg-light rounded">
+
+            <h2 class="fw-bold text-success">{{ result }}%</h2>
+
+            <p class="mb-0">Equivalent Percentage</p>
+
+        </div>
+
+        <!-- INFO BOX -->
+        <div class="row mt-4 text-center">
+
+            <div class="col-6">
+                <div class="p-3 bg-light rounded">
+                    <h6>CGPA</h6>
+                   <strong>{{ cgpa or "Input" }}</strong>
+                </div>
+            </div>
+
+            <div class="col-6">
+                <div class="p-3 bg-light rounded">
+                    <h6>Formula</h6>
+                    <strong>CGPA × 9.5</strong>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- CHART -->
+        <canvas id="cgpaChart" class="mt-4"></canvas>
+
+        {% else %}
+        <p class="text-muted mt-4">Your converted percentage will appear here</p>
+        {% endif %}
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- 📊 CHART -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const result = {{ result | default(0) | tojson }};
+    const ctx = document.getElementById("cgpaChart");
+
+    if (ctx && result > 0) {
+
+        new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Performance', 'Remaining Gap'],
+                datasets: [{
+                    data: [result, 100 - result]
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }
+        });
+    }
+
+});
+</script>
+
+<!-- 📘 SEO / EDUCATION CONTENT -->
+<div class="container mt-5 mb-5">
+
+    <h2>What is CGPA?</h2>
+
+    <!-- 🎓 IMAGE (ACADEMIC STYLE POSITION) -->
+    <div class="col-md-5 text-center">
+    <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=600"
+          class="img-fluid rounded shadow my-4"
+         style="max-height:300px; object-fit:cover;"
+         alt="CGPA academic performance">
+</div>
+     <div class="col-md-7 image-text-gap">
+    <p class="text-muted">
+        CGPA (Cumulative Grade Point Average) is a grading system used in schools and universities
+        to measure a student’s overall academic performance over a period of time.
+    </p>
+
+    <h4 class="mt-4">How CGPA is Calculated</h4>
+
+    <p class="text-muted">
+        CGPA is usually calculated by averaging grade points obtained in all subjects.
+        In many universities, it is converted into percentage using the formula:
+    </p>
+
+    <div class="p-3 bg-light rounded text-center my-3">
+        <strong>CGPA × 9.5 = Percentage</strong>
+    </div>
+
+    <h4 class="mt-4">Why CGPA is Important</h4>
+
+    <ul class="text-muted">
+        <li>✔ Used for higher education admissions</li>
+        <li>✔ Important in job applications</li>
+        <li>✔ Standard academic performance measurement</li>
+        <li>✔ Easy comparison between students</li>
+    </ul>
+
+    <h4 class="mt-4">How This Calculator Helps</h4>
+
+    <p class="text-muted">
+        This tool instantly converts your CGPA into percentage without manual calculation,
+        saving time and avoiding errors.
+    </p>
+
+</div>
+{% endblock %}

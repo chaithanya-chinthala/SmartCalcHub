@@ -1,0 +1,173 @@
+{% extends "base.html" %}
+
+{% block title %}SIP Calculator - Mutual Fund Growth & Investment Planner | CalcNova{% endblock %}
+
+{% block description %}
+Use CalcNova SIP Calculator to estimate mutual fund returns, investment growth, and wealth creation over time. Free, fast, and accurate SIP calculator for investors.
+{% endblock %}
+
+{% block content %}
+
+<!-- 🌟 HEADER -->
+<div class="container text-center mt-4">
+
+    <h1 class="fw-bold">📈 SIP Calculator</h1>
+
+    <p class="text-muted">
+        Plan your mutual fund investments and estimate long-term wealth growth
+    </p>
+
+</div>
+
+<!-- MAIN -->
+<div class="container-fluid mt-4 px-3 px-md-5">
+  <div class="row g-4">
+
+    <!-- LEFT FORM -->
+    <div class="col-12 col-md-6">
+      <div class="card p-4 p-md-5 shadow-lg border-0">
+
+        <h3 class="fw-bold">Investment Details</h3>
+
+        <p class="text-muted small mb-3">
+            Enter monthly investment, expected return and duration to calculate SIP growth.
+        </p>
+
+        <form method="POST">
+
+          <input type="number" class="form-control mb-3"
+                 name="monthly" placeholder="Monthly Investment (₹)" required>
+
+          <input type="number" class="form-control mb-3"
+                 name="rate" placeholder="Expected Annual Return (%)" required>
+
+          <input type="number" class="form-control mb-3"
+                 name="years" placeholder="Investment Duration (Years)" required>
+
+          <button class="btn btn-primary w-100 fw-bold">
+            🚀 Calculate SIP Growth
+          </button>
+
+        </form>
+
+        {% if error %}
+        <div class="alert alert-danger mt-3">{{ error }}</div>
+        {% endif %}
+
+      </div>
+    </div>
+
+    <!-- RIGHT RESULT -->
+    <div class="col-12 col-md-6">
+      <div class="card p-4 shadow text-center h-100">
+
+        <h3>Investment Result</h3>
+
+        {% if result %}
+
+        <!-- RESULT BOX -->
+        <div class="result-box mt-3 p-3 rounded bg-light">
+
+            <h2 class="fw-bold text-success">₹ {{ result }}</h2>
+
+            <p class="mb-0">Estimated Total Wealth After Maturity</p>
+
+        </div>
+
+        <!-- BREAKDOWN -->
+        <div class="row mt-4 text-center">
+
+            <div class="col-6">
+                <div class="p-3 bg-light rounded">
+                    <h6>Invested</h6>
+                    <strong>Monthly × Years</strong>
+                </div>
+            </div>
+
+            <div class="col-6">
+                <div class="p-3 bg-light rounded">
+                    <h6>Returns</h6>
+                    <strong>Compounded Growth</strong>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- CHART -->
+        <canvas id="sipChart" class="mt-4"></canvas>
+
+        {% else %}
+        <p class="text-muted mt-4">Your SIP growth projection will appear here</p>
+        {% endif %}
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- 📊 CHART SCRIPT (IMPROVED) -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const result = {{ result | default(0) | tojson }};
+    const ctx = document.getElementById("sipChart");
+
+    if (ctx && result > 0) {
+
+        new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Invested Value', 'Returns'],
+                datasets: [{
+                    data: [50, 50]  // you can improve later
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { position: 'bottom' }
+                }
+            }
+        });
+    }
+
+});
+</script>
+
+<!-- 📘 SEO / EDUCATION CONTENT -->
+<div class="container mt-5 mb-5">
+
+    <h2>What is SIP (Systematic Investment Plan)?</h2>
+<!-- 📊 IMAGE INSIDE CONTENT (PRO PLACEMENT) -->
+  <div class="col-md-5 text-center">
+    <img src="https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?q=80&w=600"
+         class="img-fluid rounded shadow my-4"
+         style="max-height:300px; object-fit:cover;"
+         alt="SIP investment growth chart">
+</div>
+     <div class="col-md-7 image-text-gap">
+    <p class="text-muted">
+        SIP (Systematic Investment Plan) is a disciplined way of investing in mutual funds
+        where you invest a fixed amount every month instead of a lump sum.
+        It helps you build wealth gradually using the power of compounding.
+    </p>
+
+    <h4 class="mt-4">How SIP Works</h4>
+
+    <p class="text-muted">
+        When you invest regularly, your money earns returns, and those returns are reinvested,
+        helping your wealth grow faster over time.
+    </p>
+
+    <h4 class="mt-4">Benefits of SIP</h4>
+
+    <ul class="text-muted">
+        <li>✔ Disciplined monthly investing</li>
+        <li>✔ Reduces market risk through averaging</li>
+        <li>✔ Long-term wealth creation</li>
+        <li>✔ Ideal for beginners and students</li>
+    </ul>
+
+</div>
+{% endblock %}

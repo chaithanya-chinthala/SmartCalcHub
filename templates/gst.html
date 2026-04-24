@@ -1,71 +1,78 @@
 {% extends "base.html" %}
 
-{% block title %}GST Calculator - CalcNova{% endblock %}
+{% block title %}GST Calculator - Calculate GST Online | CalcNova{% endblock %}
+
+{% block description %}
+Use our free GST calculator to quickly calculate GST amount and total price. Accurate and easy for business and personal use.
+{% endblock %}
 
 {% block content %}
 
-<div class="container-fluid mt-4 px-3 px-md-5">
-  <div class="row">
+<!-- 🔥 HERO -->
+<div class="text-center py-4 py-md-5">
+    <h1 class="fw-bold">🧾 GST Calculator</h1>
+    <p class="text-muted">
+        Calculate GST amount and total price instantly with accurate results.
+    </p>
+</div>
 
-    <!-- LEFT: FORM -->
-    <div class="col-12 col-md-6 mb-4">
-      <div class="card p-4 p-md-5 shadow-lg border-0">
-        <h3><i class="bi bi-receipt text-success"></i> GST Calculator</h3>
-        <p class="text-muted small">
-          Calculate GST amount and total cost instantly for accurate billing.
-        </p>
+<div class="container">
+  <div class="row g-4">
+
+    <!-- 🧮 FORM -->
+    <div class="col-12 col-lg-5">
+      <div class="card shadow-lg border-0 p-4 p-md-5">
+
+        <h4 class="mb-3">Enter Details</h4>
 
         <form method="POST">
-          <input type="number" class="form-control mb-3"
-                 name="amount" step="any" min="0"
-                 placeholder="Enter Amount (₹)" required>
 
-          <input type="number" class="form-control mb-3"
-                 name="gst" step="any" min="0" max="100"
-                 placeholder="GST (%)" required>
+          <label class="small mb-1">Amount (₹)</label>
+          <input type="number" name="amount" step="any" class="form-control mb-3" required>
 
-          <button class="btn btn-success w-100">Calculate GST</button>
+          <label class="small mb-1">GST Rate (%)</label>
+          <input type="number" name="gst" step="any" class="form-control mb-3" required>
+
+          <button class="btn btn-success w-100 py-2 fw-bold">
+              Calculate GST
+          </button>
+
         </form>
 
-        <!-- ❗ ERROR -->
         {% if error %}
-          <div class="alert alert-danger mt-3">
-            {{ error }}
-          </div>
+        <div class="alert alert-danger mt-3">{{ error }}</div>
         {% endif %}
 
       </div>
     </div>
 
-    <!-- RIGHT: RESULT -->
-    <div class="col-12 col-md-6 mb-4">
-      <div class="card p-4 shadow text-center">
+    <!-- 📊 RESULT -->
+    <div class="col-12 col-lg-7">
+      <div class="card shadow border-0 p-4 text-center">
 
-        <h3>Result</h3>
+        <h4>Result</h4>
 
-        {% if gst_amount is not none and total is not none %}
+        {% if total %}
 
-        <!-- 🎯 RESULT BOX -->
+        <!-- 🎯 MAIN RESULT -->
         <div class="result-box mt-3">
             <h2 class="fw-bold">₹ {{ total }}</h2>
-            <p class="mb-0">Total Amount</p>
+            <p class="mb-0">Total Amount (Including GST)</p>
         </div>
 
-        <hr>
-
         <!-- 📊 BREAKDOWN -->
-        <div class="row text-center mt-3">
+        <div class="row mt-4 text-center">
 
             <div class="col-6">
-                <div class="p-3 bg-light rounded">
+                <div class="p-3 bg-light rounded shadow-sm">
                     <h6>Base Amount</h6>
                     <strong>₹ {{ amount }}</strong>
                 </div>
             </div>
 
             <div class="col-6">
-                <div class="p-3 bg-light rounded">
-                    <h6>GST</h6>
+                <div class="p-3 bg-light rounded shadow-sm">
+                    <h6>GST Amount</h6>
                     <strong>₹ {{ gst_amount }}</strong>
                 </div>
             </div>
@@ -76,7 +83,7 @@
         <canvas id="gstChart" class="mt-4 w-100" style="max-height:250px;"></canvas>
 
         {% else %}
-            <p class="text-muted mt-4">GST result will appear here</p>
+        <p class="text-muted mt-4">GST result will appear here</p>
         {% endif %}
 
       </div>
@@ -85,10 +92,9 @@
   </div>
 </div>
 
-<!-- 📊 CHART SCRIPT -->
+<!-- 📊 CHART -->
 <script>
 document.addEventListener("DOMContentLoaded", function () {
-
     const ctx = document.getElementById('gstChart');
 
     if (ctx) {
@@ -107,38 +113,47 @@ document.addEventListener("DOMContentLoaded", function () {
                 options: {
                     responsive: true,
                     plugins: {
-                        legend: {
-                            position: 'bottom'
-                        }
+                        legend: { position: 'bottom' }
                     }
                 }
             });
         }
     }
-
 });
 </script>
 
-<!-- 📘 SEO + INFO SECTION -->
-<div class="container mt-5 text-white">
+<!-- 📘 SEO CONTENT -->
+<div class="container mt-5">
 
-    <h2 class="mb-3">What is GST?</h2>
+    <h2>What is GST?</h2>
     <p>
-        GST (Goods and Services Tax) is an indirect tax applied on the supply of goods
-        and services. It simplifies the tax system by replacing multiple taxes with a
-        single unified tax structure.
+        GST (Goods and Services Tax) is an indirect tax applied on goods and services.
+        It simplifies the taxation system by replacing multiple taxes into a single unified system.
     </p>
 
-    <img src="https://images.unsplash.com/photo-1556745757-8d76bdb6984b?q=80&w=1000"
+    <img src="https://images.unsplash.com/photo-1556745757-8d76bdb6984b?q=80&w=1200"
          class="img-fluid rounded shadow my-4"
-         alt="GST calculation and invoice">
+         style="max-height:300px; object-fit:cover;">
 
-    <h3>Why Use a GST Calculator?</h3>
+    <h3>How to Calculate GST?</h3>
     <ul>
-        <li>Calculate tax instantly without manual effort</li>
-        <li>Know the final payable amount quickly</li>
-        <li>Useful for businesses and daily transactions</li>
-        <li>Avoid calculation errors</li>
+        <li>Enter the base amount</li>
+        <li>Enter GST percentage</li>
+        <li>Click calculate</li>
+        <li>Get total amount instantly</li>
+    </ul>
+
+    <h3>GST Formula</h3>
+    <p>
+        GST Amount = (Original Amount × GST Rate) / 100
+    </p>
+
+    <h3>Benefits of GST Calculator</h3>
+    <ul>
+        <li>Instant tax calculation</li>
+        <li>Accurate billing</li>
+        <li>Useful for businesses</li>
+        <li>Saves time and effort</li>
     </ul>
 
 </div>
